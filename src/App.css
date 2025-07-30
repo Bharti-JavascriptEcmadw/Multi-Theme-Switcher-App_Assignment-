@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* 🔷 Theme 1 — Professional Blue (Cool + Clean) */
+  .theme1 {
+    @apply bg-gradient-to-br from-slate-300 via-blue-50 to-cyan-100 text-slate-800 font-sans;
+  }
+  .theme1 .navbar {
+    @apply bg-cyan-800;
+  }
+
+  .theme2 {
+    @apply bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white font-bold font-serif italic;
+  }
+  .theme2 .navbar {
+    @apply bg-teal-900;
+  }
+
+.theme3 {
+  @apply bg-yellow-200 text-gray-800 font-pacifico;
+}
+.theme3 .navbar {
+  @apply bg-gradient-to-r from-green-400 via-lime-400 to-purple-400;
+}
+
+}
