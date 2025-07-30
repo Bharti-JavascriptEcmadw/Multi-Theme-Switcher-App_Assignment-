@@ -11,7 +11,7 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header
+    <nav
       className={`navbar fixed top-0 left-0 right-0 p-4 shadow z-50
         ${theme === 'theme1' ? 'bg-gray-200 text-gray-800 font-sans' : ''}
         ${theme === 'theme2' ? 'bg-gray-900 text-white font-bold font-serif italic' : ''}
@@ -62,6 +62,6 @@ export default function Navbar() {
           </div>
         )}
       </div>
-    </header>
+    </nav>
   );
 }
