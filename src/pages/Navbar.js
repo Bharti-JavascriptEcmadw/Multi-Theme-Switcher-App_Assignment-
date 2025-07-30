@@ -1,9 +1,14 @@
-import React ,{ useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ThemeContext } from '../ThemeContext';
 import { Link } from 'react-router-dom';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 export default function Navbar() {
   const { theme, setTheme } = useContext(ThemeContext);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
   return (
     <header
@@ -14,14 +19,17 @@ export default function Navbar() {
         backdrop-blur bg-white/90
       `}
     >
-      <div className="relative flex flex-col sm:flex-row items-center w-full">
-        {/* Title centered */}
-        <h1 className="text-xl font-bold mb-2 sm:mb-0 sm:absolute sm:left-1/2 sm:transform sm:-translate-x-1/2">
-          🎨 Theme Switcher
-        </h1>
+      <div className="flex items-center justify-between w-full relative">
+        {/* Title */}
+        <h1 className="text-xl font-bold">🎨 Theme Switcher</h1>
 
-        {/* Right aligned select and links */}
-        <div className="flex flex-wrap sm:flex-nowrap justify-center sm:justify-end gap-4 w-full sm:w-auto ml-auto">
+        {/* Hamburger icon for small screens */}
+        <button onClick={toggleMenu} className="sm:hidden text-2xl">
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </button>
+
+        {/* Desktop menu */}
+        <div className="hidden sm:flex gap-4 items-center ml-auto">
           <select
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
@@ -31,16 +39,28 @@ export default function Navbar() {
             <option value="theme2">Theme 2</option>
             <option value="theme3">Theme 3</option>
           </select>
-          <Link to="/" className="hover:underline">
-            Home
-          </Link>
-          <Link to="/about" className="hover:underline">
-            About
-          </Link>
-          <Link to="/contact" className="hover:underline">
-            Contact
-          </Link>
+          <Link to="/" className="hover:underline">Home</Link>
+          <Link to="/about" className="hover:underline">About</Link>
+          <Link to="/contact" className="hover:underline">Contact</Link>
         </div>
+
+        {/* Mobile menu */}
+        {isOpen && (
+          <div className="absolute top-full left-0 w-full flex flex-col items-center gap-4 bg-white shadow sm:hidden py-4 z-50">
+            <select
+              value={theme}
+              onChange={(e) => setTheme(e.target.value)}
+              className="p-1 rounded text-black border border-black w-3/4"
+            >
+              <option value="theme1">Theme 1</option>
+              <option value="theme2">Theme 2</option>
+              <option value="theme3">Theme 3</option>
+            </select>
+            <Link to="/" onClick={closeMenu} className="hover:underline">Home</Link>
+            <Link to="/about" onClick={closeMenu} className="hover:underline">About</Link>
+            <Link to="/contact" onClick={closeMenu} className="hover:underline">Contact</Link>
+          </div>
+        )}
       </div>
     </header>
   );
